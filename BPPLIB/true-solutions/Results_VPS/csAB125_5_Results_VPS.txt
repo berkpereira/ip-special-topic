@@ -1,0 +1,78 @@
+Copyright (C) 2013-2015, Filipe Brandao
+Build (method = -2)
+  #dp: 1445427
+  Step-3' Graph: 95487 vertices and 707625 arcs (50.90s)
+  Step-4' Graph: 82980 vertices and 682601 arcs (51.39s)
+  #V4/#V3 = 0.87
+  #A4/#A3 = 0.96
+Ready! (51.39s)
+Optimize a model with 83105 rows, 682602 columns and 1881815 nonzeros
+Coefficient statistics:
+  Matrix range    [1e+00, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [1e+00, 2e+01]
+  RHS range       [1e+00, 2e+01]
+Presolve removed 3131 rows and 6236 columns (presolve time = 5s) ...
+Presolve removed 3131 rows and 6236 columns
+Presolve time: 7.41s
+Presolved: 79974 rows, 676366 columns, 1871984 nonzeros
+Variable types: 0 continuous, 676366 integer (21088 binary)
+Optimize a model with 79974 rows, 676366 columns and 1871984 nonzeros
+Coefficient statistics:
+  Matrix range    [1e+00, 3e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [1e+00, 2e+05]
+  RHS range       [1e+00, 4e+02]
+Presolve removed 5 rows and 5 columns
+Presolved: 79969 rows, 676361 columns, 1871984 nonzeros
+
+Root barrier log...
+
+Elapsed ordering time = 5s
+Elapsed ordering time = 7s
+Elapsed ordering time = 10s
+Elapsed ordering time = 12s
+Elapsed ordering time = 15s
+Elapsed ordering time = 17s
+Elapsed ordering time = 20s
+Elapsed ordering time = 22s
+Elapsed ordering time = 25s
+Ordering time: 27.29s
+
+Barrier statistics:
+ AA' NZ     : 1.178e+06
+ Factor NZ  : 4.493e+08 (roughly 4.0 GBytes of memory)
+ Factor Ops : 7.301e+12 (roughly 400 seconds per iteration)
+ Threads    : 1
+
+                  Objective                Residual
+Iter       Primal          Dual         Primal    Dual     Compl     Time
+   0   2.04597921e+06 -4.44564482e+07  2.11e+09 1.25e-01  2.59e+04   412s
+   1   2.00614861e+05 -3.31867171e+07  1.32e+08 6.12e-02  1.67e+03   783s
+   2   2.78580764e+04 -1.67443243e+07  1.32e+07 2.38e-14  1.77e+02  1151s
+   3   3.68505185e+03 -8.06718194e+06  8.34e+05 3.15e-14  1.66e+01  1523s
+   4   1.79548137e+03 -4.68916009e+06  1.30e+05 2.31e-14  5.03e+00  1894s
+   5   1.71172815e+03 -2.22559593e+06  9.98e+04 1.95e-14  2.74e+00  2261s
+   6   1.60398311e+03 -1.17695891e+06  6.19e+04 4.53e-14  1.52e+00  2629s
+   7   1.70116785e+03 -6.96156769e+05  2.59e+04 3.73e-14  7.86e-01  2997s
+   8   1.62402663e+03 -1.81127791e+05  2.70e+03 8.35e-14  1.63e-01  3369s
+
+Barrier performed 8 iterations in 3600.15 seconds
+Time limit reached
+
+
+Root relaxation: time limit, 0 iterations, 3585.14 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0          -    0               -          -      -     - 3600s
+
+Explored 0 nodes (0 simplex iterations) in 3600.18 seconds
+Thread count was 1 (of 4 available processors)
+
+Time limit reached
+Best objective -, best bound -, gap -
+Preprocessing time: 53.31 seconds
+Gurobi run time: 3600.18 seconds
+Total run time: 3653.49 seconds

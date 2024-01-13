@@ -1,0 +1,117 @@
+Copyright (C) 2013-2015, Filipe Brandao
+Build (method = -2)
+  #dp: 1897
+  Step-3' Graph: 60 vertices and 774 arcs (0.00s)
+  Step-4' Graph: 60 vertices and 774 arcs (0.00s)
+  #V4/#V3 = 1.00
+  #A4/#A3 = 1.00
+Ready! (0.00s)
+Optimize a model with 111 rows, 775 columns and 2213 nonzeros
+Found heuristic solution: objective 508
+Presolve removed 22 rows and 27 columns
+Presolve time: 0.00s
+Presolved: 89 rows, 748 columns, 2139 nonzeros
+Variable types: 0 continuous, 748 integer (0 binary)
+Optimize a model with 89 rows, 748 columns and 2139 nonzeros
+Presolved: 89 rows, 748 columns, 2139 nonzeros
+
+Root barrier log...
+
+Ordering time: 0.00s
+
+Barrier statistics:
+ AA' NZ     : 1.136e+03
+ Factor NZ  : 2.237e+03
+ Factor Ops : 7.540e+04 (less than 1 second per iteration)
+ Threads    : 1
+
+                  Objective                Residual
+Iter       Primal          Dual         Primal    Dual     Compl     Time
+   0   7.58651508e+03 -2.17408833e+04  6.76e+04 2.22e-16  1.23e+02     0s
+   1   2.31913085e+03 -7.66064389e+03  1.09e+04 5.55e-16  2.18e+01     0s
+   2   7.61818112e+02 -2.72450647e+03  4.92e+02 1.78e-15  2.80e+00     0s
+   3   6.09455281e+02 -1.05498498e+03  4.18e+00 1.33e-15  1.09e+00     0s
+   4   4.44888784e+02 -1.34159631e+02  8.54e-03 4.44e-16  3.79e-01     0s
+   5   3.77965948e+02  5.02872956e+01  2.24e-03 2.22e-16  2.15e-01     0s
+   6   3.58205136e+02  2.22621867e+02  9.15e-04 3.33e-16  8.88e-02     0s
+   7   3.44082218e+02  2.84436562e+02  3.28e-04 3.33e-16  3.91e-02     0s
+   8   3.37627215e+02  3.18275242e+02  5.47e-05 3.33e-16  1.27e-02     0s
+   9   3.35874400e+02  3.27806309e+02  2.61e-05 2.22e-16  5.28e-03     0s
+  10   3.34709117e+02  3.30816554e+02  7.46e-06 2.22e-16  2.55e-03     0s
+  11   3.34124806e+02  3.33609961e+02  7.76e-07 2.58e-16  3.37e-04     0s
+  12   3.34067940e+02  3.33973739e+02  3.85e-08 2.22e-16  6.17e-05     0s
+  13   3.34022435e+02  3.34012291e+02  2.84e-09 2.22e-16  6.64e-06     0s
+  14   3.34020836e+02  3.34020822e+02  8.36e-12 3.33e-16  9.22e-09     0s
+  15   3.34020833e+02  3.34020833e+02  1.42e-12 4.44e-16  2.46e-14     0s
+
+Barrier solved model in 15 iterations and 0.01 seconds
+Optimal objective 3.34020833e+02
+
+
+Root relaxation: objective 3.340208e+02, 172 iterations, 0.01 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0  334.02083    0   28  508.00000  334.02083  34.2%     -    0s
+H    0     0                     336.0000000  334.02083  0.59%     -    0s
+H    0     0                     335.0000000  334.02083  0.29%     -    0s
+
+Explored 0 nodes (270 simplex iterations) in 0.02 seconds
+Thread count was 1 (of 4 available processors)
+
+Optimal solution found (tolerance 0.00e+00)
+Best objective 3.350000000000e+02, best bound 3.350000000000e+02, gap 0.0%
+Preprocessing time: 0.00 seconds
+Gurobi run time: 0.02 seconds
+Total run time: 0.02 seconds
+Objective: 335
+Solution:
+13 x [i=1, i=41]
+6 x [i=2, i=40]
+8 x [i=3, i=39]
+15 x [i=4, i=38]
+13 x [i=5, i=37]
+4 x [i=5, i=39]
+15 x [i=6, i=36]
+12 x [i=7, i=35]
+14 x [i=8, i=34]
+3 x [i=8, i=40]
+15 x [i=9, i=33]
+4 x [i=10, i=33]
+6 x [i=10, i=36]
+3 x [i=10, i=40]
+12 x [i=11, i=31]
+7 x [i=11, i=32]
+12 x [i=12, i=30]
+3 x [i=12, i=32]
+1 x [i=12, i=33]
+12 x [i=13, i=29]
+3 x [i=13, i=49, i=51]
+6 x [i=13, i=50, i=50]
+4 x [i=14, i=28]
+8 x [i=14, i=48, i=51]
+1 x [i=14, i=49, i=50]
+7 x [i=15, i=27]
+13 x [i=16, i=26]
+4 x [i=16, i=47, i=50]
+15 x [i=17, i=25]
+5 x [i=17, i=48, i=48]
+5 x [i=18, i=44, i=51]
+11 x [i=18, i=46, i=49]
+13 x [i=19, i=23]
+6 x [i=19, i=43, i=51]
+1 x [i=19, i=46]
+13 x [i=20, i=22]
+1 x [i=20, i=42, i=51]
+1 x [i=21]
+10 x [i=21, i=21]
+3 x [i=24, i=42, i=47]
+9 x [i=24, i=44, i=45]
+1 x [i=27, i=42, i=44]
+10 x [i=28, i=42, i=43]
+2 x [i=32, i=41, i=41]
+1 x [i=35, i=39, i=40]
+2 x [i=39, i=40, i=42]
+1 x [i=45, i=46, i=48]
+1 x [i=45, i=45, i=46, i=48]

@@ -1,0 +1,157 @@
+Copyright (C) 2013-2015, Filipe Brandao
+Build (method = -2)
+  #dp: 9612
+  Step-3' Graph: 146 vertices and 4301 arcs (0.01s)
+  Step-4' Graph: 146 vertices and 4301 arcs (0.01s)
+  #V4/#V3 = 1.00
+  #A4/#A3 = 1.00
+Ready! (0.01s)
+Optimize a model with 259 rows, 4302 columns and 12620 nonzeros
+Found heuristic solution: objective 190
+Presolve removed 53 rows and 57 columns
+Presolve time: 0.03s
+Presolved: 206 rows, 4245 columns, 12439 nonzeros
+Variable types: 0 continuous, 4245 integer (2007 binary)
+Optimize a model with 206 rows, 4245 columns and 12439 nonzeros
+Presolved: 206 rows, 4245 columns, 12439 nonzeros
+
+Root barrier log...
+
+Ordering time: 0.00s
+
+Barrier statistics:
+ AA' NZ     : 7.918e+03
+ Factor NZ  : 1.363e+04 (roughly 2 MBytes of memory)
+ Factor Ops : 1.232e+06 (less than 1 second per iteration)
+ Threads    : 1
+
+                  Objective                Residual
+Iter       Primal          Dual         Primal    Dual     Compl     Time
+   0   3.95158407e+03 -2.67015635e+04  1.99e+04 8.16e-02  2.50e+01     0s
+   1   1.20891768e+03 -8.53194741e+03  2.55e+03 6.66e-16  3.80e+00     0s
+   2   4.20974106e+02 -3.62882854e+03  3.29e+02 2.89e-02  7.88e-01     0s
+   3   2.55194482e+02 -6.08306456e+02  4.96e+01 3.22e-03  1.37e-01     0s
+   4   1.80388837e+02 -1.11589212e+02  1.75e+01 6.95e-04  4.35e-02     0s
+   5   1.46279646e+02 -1.67579319e+01  7.98e+00 2.94e-04  2.24e-02     0s
+   6   1.24107408e+02  2.41257406e+01  4.14e+00 1.07e-04  1.32e-02     0s
+   7   1.09816841e+02  5.54137992e+01  1.74e+00 2.31e-16  6.85e-03     0s
+   8   1.03023369e+02  6.61201714e+01  8.59e-01 2.22e-16  4.54e-03     0s
+   9   9.95306076e+01  7.93702351e+01  5.44e-01 7.98e-16  2.48e-03     0s
+  10   9.65849498e+01  8.37556916e+01  3.13e-01 6.23e-16  1.57e-03     0s
+  11   9.54754377e+01  8.53872955e+01  2.28e-01 6.84e-16  1.23e-03     0s
+  12   9.41477561e+01  8.75291923e+01  1.23e-01 6.95e-16  7.98e-04     0s
+  13   9.37583055e+01  8.88020124e+01  9.41e-02 4.44e-16  5.96e-04     0s
+  14   9.31733244e+01  9.07639168e+01  5.26e-02 3.83e-16  2.89e-04     0s
+  15   9.26890717e+01  9.11335500e+01  2.07e-02 4.73e-16  1.85e-04     0s
+  16   9.24974395e+01  9.18320595e+01  8.39e-03 4.44e-16  7.87e-05     0s
+  17   9.23920740e+01  9.19873881e+01  3.28e-03 5.40e-16  4.77e-05     0s
+  18   9.23474811e+01  9.21061218e+01  1.96e-03 5.48e-16  2.84e-05     0s
+  19   9.23093419e+01  9.21745934e+01  8.78e-04 3.85e-16  1.59e-05     0s
+  20   9.22902455e+01  9.22118535e+01  4.61e-04 4.17e-16  9.22e-06     0s
+  21   9.22785817e+01  9.22450127e+01  2.25e-04 4.44e-16  3.95e-06     0s
+  22   9.22754084e+01  9.22537014e+01  1.46e-04 5.55e-16  2.55e-06     0s
+  23   9.22695379e+01  9.22556963e+01  4.21e-05 5.47e-16  1.63e-06     0s
+  24   9.22674063e+01  9.22663077e+01  4.57e-06 4.79e-16  1.29e-07     0s
+  25   9.22670490e+01  9.22670436e+01  8.71e-09 4.27e-16  6.35e-10     0s
+  26   9.22670455e+01  9.22670455e+01  3.18e-12 5.55e-16  8.97e-16     0s
+
+Barrier solved model in 26 iterations and 0.05 seconds
+Optimal objective 9.22670455e+01
+
+
+Root relaxation: objective 9.226705e+01, 326 iterations, 0.05 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0   92.26705    0   40  190.00000   92.26705  51.4%     -    0s
+H    0     0                      93.0000000   92.26705  0.79%     -    0s
+
+Explored 0 nodes (610 simplex iterations) in 0.11 seconds
+Thread count was 1 (of 4 available processors)
+
+Optimal solution found (tolerance 0.00e+00)
+Best objective 9.300000000000e+01, best bound 9.300000000000e+01, gap 0.0%
+Preprocessing time: 0.02 seconds
+Gurobi run time: 0.11 seconds
+Total run time: 0.13 seconds
+Objective: 93
+Solution:
+1 x [i=1, i=101]
+1 x [i=1, i=103]
+2 x [i=2, i=96]
+1 x [i=3, i=95]
+1 x [i=3, i=106]
+3 x [i=4, i=98]
+1 x [i=4, i=99]
+1 x [i=5, i=97]
+1 x [i=5, i=103]
+1 x [i=6, i=94]
+2 x [i=7, i=93]
+1 x [i=8, i=92]
+1 x [i=9, i=92]
+1 x [i=10, i=91]
+1 x [i=11, i=91]
+1 x [i=12, i=90]
+2 x [i=12, i=104, i=113]
+1 x [i=12, i=108]
+1 x [i=13, i=107, i=109]
+1 x [i=14, i=89]
+1 x [i=14, i=105, i=110]
+1 x [i=14, i=111]
+1 x [i=15, i=88]
+1 x [i=16, i=87]
+1 x [i=17, i=86]
+1 x [i=18, i=84]
+2 x [i=19, i=82]
+1 x [i=20, i=81]
+1 x [i=20, i=83]
+1 x [i=20, i=101, i=109]
+1 x [i=21, i=80]
+1 x [i=21, i=104]
+1 x [i=22, i=78]
+1 x [i=23, i=77]
+2 x [i=24, i=79]
+1 x [i=25, i=74]
+1 x [i=25, i=76]
+1 x [i=26, i=74]
+1 x [i=27, i=75]
+2 x [i=28, i=73]
+1 x [i=28, i=100, i=109]
+1 x [i=29, i=71]
+1 x [i=29, i=76]
+1 x [i=30, i=70]
+1 x [i=30, i=71]
+1 x [i=31, i=69]
+3 x [i=31, i=72]
+1 x [i=32, i=85, i=113]
+1 x [i=32, i=102]
+1 x [i=33, i=88, i=109]
+1 x [i=33, i=93, i=103]
+1 x [i=34, i=68]
+1 x [i=35, i=67]
+2 x [i=36, i=66]
+1 x [i=37, i=65]
+2 x [i=38, i=65]
+1 x [i=39, i=62]
+3 x [i=39, i=63]
+1 x [i=40, i=61]
+1 x [i=40, i=62]
+1 x [i=40, i=87, i=105]
+1 x [i=41, i=60]
+1 x [i=42, i=59]
+1 x [i=43, i=58]
+1 x [i=44, i=57]
+1 x [i=45, i=54]
+2 x [i=46, i=53]
+1 x [i=47, i=55]
+1 x [i=48, i=54]
+1 x [i=49, i=50]
+1 x [i=49, i=54]
+1 x [i=51, i=52]
+1 x [i=52, i=56]
+1 x [i=53, i=77, i=101]
+1 x [i=55, i=56]
+1 x [i=56, i=64, i=109]
+1 x [i=58, i=59, i=112]
+1 x [i=59, i=85, i=88]

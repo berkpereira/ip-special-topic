@@ -1,0 +1,90 @@
+Copyright (C) 2013-2015, Filipe Brandao
+Build (method = -2)
+  #dp: 8454
+  Step-3' Graph: 294 vertices and 3898 arcs (0.02s)
+  Step-4' Graph: 210 vertices and 3646 arcs (0.02s)
+  #V4/#V3 = 0.71
+  #A4/#A3 = 0.94
+Ready! (0.02s)
+Optimize a model with 256 rows, 3647 columns and 10528 nonzeros
+Presolve removed 4 rows and 6 columns
+Presolve time: 0.03s
+Presolved: 252 rows, 3641 columns, 10518 nonzeros
+Variable types: 0 continuous, 3641 integer (1193 binary)
+Optimize a model with 252 rows, 3641 columns and 10518 nonzeros
+Presolved: 252 rows, 3641 columns, 10518 nonzeros
+
+Root barrier log...
+
+Ordering time: 0.00s
+
+Barrier statistics:
+ AA' NZ     : 5.890e+03
+ Factor NZ  : 1.419e+04 (roughly 2 MBytes of memory)
+ Factor Ops : 1.071e+06 (less than 1 second per iteration)
+ Threads    : 1
+
+                  Objective                Residual
+Iter       Primal          Dual         Primal    Dual     Compl     Time
+   0   1.98429324e+04 -6.81632448e+04  1.87e+05 1.44e-01  2.01e+02     0s
+   1   5.08305226e+03 -1.90051353e+04  2.91e+04 3.22e-15  3.23e+01     0s
+   2   7.99675736e+02 -6.21840976e+03  3.18e+03 1.78e-15  4.01e+00     0s
+   3   2.62558238e+02 -2.52266075e+03  3.62e+02 2.06e-04  6.80e-01     0s
+   4   1.42430307e+02 -5.09248213e+02  5.43e+01 1.22e-15  1.21e-01     0s
+   5   8.62447935e+01 -2.35328182e+02  1.57e+01 1.42e-15  5.15e-02     0s
+   6   7.45639100e+01 -1.73877290e+02  1.12e+01 1.51e-15  3.89e-02     0s
+   7   4.80360910e+01 -1.07748312e+02  5.63e+00 1.73e-15  2.34e-02     0s
+   8   2.70691045e+01 -5.65022835e+01  1.91e+00 1.69e-15  1.20e-02     0s
+   9   2.45319953e+01 -1.40876152e+00  1.38e+00 1.36e-15  3.80e-03     0s
+  10   2.04478766e+01  8.71194146e+00  5.75e-01 1.29e-15  1.68e-03     0s
+  11   1.96823508e+01  1.26177463e+01  2.30e-01 1.51e-15  9.88e-04     0s
+  12   1.89255358e+01  1.51041645e+01  1.49e-01 1.20e-15  5.33e-04     0s
+  13   1.83966619e+01  1.64205955e+01  8.96e-02 1.26e-15  2.75e-04     0s
+  14   1.78782143e+01  1.71791873e+01  2.89e-02 1.30e-15  9.70e-05     0s
+  15   1.75780454e+01  1.74637853e+01  1.75e-03 1.38e-15  1.57e-05     0s
+  16   1.75416256e+01  1.75242212e+01  8.89e-05 1.48e-15  2.38e-06     0s
+  17   1.75385108e+01  1.75368307e+01  6.55e-06 1.33e-15  2.30e-07     0s
+  18   1.75381831e+01  1.75381794e+01  1.77e-13 1.44e-15  4.98e-10     0s
+  19   1.75381818e+01  1.75381818e+01  8.07e-14 1.31e-15  5.32e-16     0s
+
+Barrier solved model in 19 iterations and 0.04 seconds
+Optimal objective 1.75381818e+01
+
+
+Root relaxation: objective 1.753818e+01, 1312 iterations, 0.05 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0   17.53818    0   66          -   17.53818     -      -    0s
+H    0     0                      43.0000000   17.53818  59.2%     -    0s
+H    0     0                      20.0000000   17.53818  12.3%     -    0s
+H    0     0                      18.0000000   17.53818  2.57%     -    0s
+
+Explored 0 nodes (2701 simplex iterations) in 0.56 seconds
+Thread count was 1 (of 4 available processors)
+
+Optimal solution found (tolerance 0.00e+00)
+Best objective 1.800000000000e+01, best bound 1.800000000000e+01, gap 0.0%
+Preprocessing time: 0.03 seconds
+Gurobi run time: 0.56 seconds
+Total run time: 0.59 seconds
+Objective: 18
+Solution:
+1 x [i=1, i=2, i=3, i=6, i=8]
+2 x [i=1, i=4, i=5, i=9, i=12]
+1 x [i=3, i=7, i=8, i=8, i=11]
+1 x [i=10, i=11, i=13, i=14, i=14]
+1 x [i=14, i=14, i=29, i=37, i=44, i=46]
+1 x [i=15, i=16, i=33, i=35, i=38, i=45]
+1 x [i=15, i=21, i=22, i=46]
+1 x [i=15, i=24, i=26, i=38, i=40, i=40]
+1 x [i=16, i=17, i=25, i=36, i=44, i=46]
+1 x [i=16, i=27, i=29, i=31, i=40, i=40]
+1 x [i=17, i=17, i=20, i=43, i=44, i=45]
+1 x [i=18, i=28, i=30, i=33, i=33, i=40]
+1 x [i=18, i=28, i=31, i=34, i=41]
+1 x [i=19, i=23, i=25, i=33, i=41, i=42]
+1 x [i=20, i=22, i=27, i=32, i=41, i=42]
+1 x [i=20, i=22, i=22, i=36, i=39, i=46]
+1 x [i=20, i=27, i=29, i=30, i=38, i=40]
