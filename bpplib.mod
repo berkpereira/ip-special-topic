@@ -14,7 +14,7 @@ param nbr {WIDTHS,PATTERNS} integer >= 0;
 	check {j in PATTERNS}:
 		sum {i in WIDTHS} i * nbr[i,j] <= roll_width; # defn of patterns: nbr[i,j] = number of rolls of width i in pattern j
 
-# Cutting_Opt problem
+# PROBLEM Cutting_Opt
 var Cut {PATTERNS} integer >= 0; # rolls cut using each pattern
 
 minimize Number: # minimize total raw rolls cut
@@ -23,7 +23,7 @@ minimize Number: # minimize total raw rolls cut
 subject to Fill {i in WIDTHS}: # for each width, total rolls cut meets total demand
 	sum {j in PATTERNS} nbr[i,j] * Cut[j] >= orders[i]; # CONSIDER REPLACING BY EQUALITY CONSTRAINT?
 
-# Pattern_Gen problem
+# PROBLEM Pattern_Gen
 param price {WIDTHS} default 0.0; # prices from cutting opt
 
 var Use {WIDTHS} integer >= 0; # numbers of each width in pattern

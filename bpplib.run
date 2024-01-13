@@ -1,8 +1,11 @@
 # FROM "AMPL - A MODELING LANGUAGE FOR MATHEMATICAL PROGRAMMING", 2ND ED, by Fourer, Gay, and Kernighan.
 # Section 14.4
 
-model bpplib.mod;
-data N4C3W4_L.dat;
+# param dataFileName;  # Parameter to hold the data file name
+# model bpplib.mod;
+# data $dataFileName;  # Use the parameter in the data statement
+# data N4C3W4_L.dat; # Hard-coded way of doing things. Not good, will change.
+
 option solver cplex, solution_round 6;
 option display_1col 0, display_transpose -10;
 
