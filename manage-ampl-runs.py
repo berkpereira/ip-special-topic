@@ -1,6 +1,7 @@
 import amplpy
 import csv
 import os
+import sys
 
 import pandas as pd
 
@@ -53,7 +54,7 @@ def solutions_excel_to_df(excel_file_path, filter_selected=True):
     # Change .txt extension to .dat in the Name column
     df['Name'] = df['Name'].str.replace('.txt', '.dat')
 
-    return df                                  
+    return df
 
 # Function to find .dat files spread across multiple child directories (no repeat names please!)
 def find_file_in_directories(filename, root_directory):
@@ -62,16 +63,31 @@ def find_file_in_directories(filename, root_directory):
             return os.path.join(dirpath, filename)
     return None  # Return None if the file is not found
 
+# for output redirection (START)
+def start_redirection(file_path):
+    # Open the file where you want to redirect the output
+    sys.stdout = open(file_path, 'a')
+
+# for output redirection (REVERSION to stdout stream)
+def stop_redirection():
+    # Close the redirection file and revert stdout to its original state
+    #sys.stdout.close()
+    sys.stdout = sys.__stdout__
+
 def solve_ampl_with_different_datafiles(data_dir_str, data_df, ampl_model_file,
-                                        ampl_run_file, output_csv):
+                                        ampl_run_file, output_csv, log_file_path):
     # Create an AMPL environment
     amplpy.add_to_path(r"/Users/gabrielpereira/ampl.macos64")
     ampl = amplpy.AMPL()
 
+    # Clear contents of current AMPL output log file, if any.
+    with open(log_file_path, 'w'):
+        pass
+
     # Prepare a CSV file to store the results
     with open(output_csv, 'w', newline='') as csvfile:
         csvwriter = csv.writer(csvfile)
-        csvwriter.writerow(['DataFile', 'Solution'])  # header
+        csvwriter.writerow(['DataFile', 'Cut_Solution', 'Objective_Value'])  # header
 
         # Iterate over the data files
         for index, row in data_df.iterrows():
@@ -79,6 +95,14 @@ def solve_ampl_with_different_datafiles(data_dir_str, data_df, ampl_model_file,
             # Since the dat files are spread across 3 directories for organisation, we need to look for the .dat file
             # within those 3 directories and then put together the full path.
             dat_file = find_file_in_directories(str(row['Name']), data_dir_str)
+
+            stop_redirection()
+            print('-------------------------------------------------------------------------')
+            print(f'SOLVING PROBLEM NO. {index}')
+            print()
+
+            # Append AMPL output to log file
+            start_redirection(log_file_path)
 
             # Reset AMPL object
             ampl.reset()
@@ -97,9 +121,13 @@ def solve_ampl_with_different_datafiles(data_dir_str, data_df, ampl_model_file,
 
             # Assuming 'Cut' is the variable of interest (modify as needed)
             cut_values = ampl.getVariable('Cut').getValues().toList()
+            
+            # Get the objective function value
+            objective_function = ampl.getObjective('Number')  # Replace with your objective function's name
+            objective_value = objective_function.value()
 
             # Write the results to CSV
-            csvwriter.writerow([dat_file, cut_values])
+            csvwriter.writerow([dat_file, cut_values, objective_value])
 
     # Close the AMPL environment
     ampl.close()
@@ -110,5 +138,4 @@ if __name__ == "__main__":
     dat_folder = './BPPLIB/Scholl_CSP_dat/'
     data_df = solutions_excel_to_df(excel_solutions_path)
 
-    solve_ampl_with_different_datafiles(dat_folder, data_df, 'bpplib.mod', 'bpplib.run', 'test_output.csv')
-
+    solve_ampl_with_different_datafiles(dat_folder, data_df, 'bpplib.mod', 'bpplib.run', 'test_output.csv', './ampl_run_log.txt')
