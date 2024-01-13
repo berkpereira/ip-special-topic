@@ -38,8 +38,8 @@ def txt_to_dat(base_dir = './BPPLIB/Scholl_CSP_txt',
                 with open(target_file_path, 'w') as new_file:
                     new_file.writelines(transformed_lines)
 
-# function to read excel Solutions file into pandas dataframe for use in the script
-def solutions_excel_to_df(excel_file_path, filter_selected=True):
+# function to read excel SCHOLL-SOLUTIONS file into pandas dataframe for use in the script
+def scholl_solutions_to_df(excel_file_path, filter_selected=True):
     # Read the Excel file
     df = pd.read_excel(excel_file_path)
 
@@ -53,6 +53,21 @@ def solutions_excel_to_df(excel_file_path, filter_selected=True):
 
     # Change .txt extension to .dat in the Name column
     df['Name'] = df['Name'].str.replace('.txt', '.dat')
+
+    # Remove rows where 'Name' starts with 'HARD'
+    # These are prohibitively costly to solve.
+    df = df[~df['Name'].str.startswith('HARD')]
+
+    # Randomly select 120 rows where 3rd character in 'Name' is 'C'
+    # I PROPOSE TO DO 120 OF THESE FOR THE FINAL WORK
+    c_rows = df[df['Name'].str[2] == 'C'].sample(n=180, random_state=1)
+
+    # Randomly select 20 rows where 3rd character in 'Name' is 'W'
+    # I PROPOSE TO DO 20 OF THESE FOR THE FINAL WORK
+    w_rows = df[df['Name'].str[2] == 'W'].sample(n=0, random_state=1)
+
+    # Combine the two filtered DataFrames
+    df = pd.concat([c_rows, w_rows])
 
     return df
 
@@ -80,6 +95,9 @@ def solve_ampl_with_different_datafiles(data_dir_str, data_df, ampl_model_file,
     amplpy.add_to_path(r"/Users/gabrielpereira/ampl.macos64")
     ampl = amplpy.AMPL()
 
+    # Set time limit for solution here
+    ampl.setOption('cplex_options', 'timelimit=10')
+
     # Clear contents of current AMPL output log file, if any.
     with open(log_file_path, 'w'):
         pass
@@ -87,7 +105,7 @@ def solve_ampl_with_different_datafiles(data_dir_str, data_df, ampl_model_file,
     # Prepare a CSV file to store the results
     with open(output_csv, 'w', newline='') as csvfile:
         csvwriter = csv.writer(csvfile)
-        csvwriter.writerow(['DataFile', 'Cut_Solution', 'Objective_Value'])  # header
+        csvwriter.writerow(['DataFile', 'ObjectiveValue'])  # header
 
         # Iterate over the data files
         for index, row in data_df.iterrows():
@@ -99,6 +117,7 @@ def solve_ampl_with_different_datafiles(data_dir_str, data_df, ampl_model_file,
             stop_redirection()
             print('-------------------------------------------------------------------------')
             print(f'SOLVING PROBLEM NO. {index}')
+            os.system(f'say "{str(index)}"')
             print()
 
             # Append AMPL output to log file
@@ -117,17 +136,20 @@ def solve_ampl_with_different_datafiles(data_dir_str, data_df, ampl_model_file,
             ampl.read(ampl_run_file)
 
             # Solve the problem
-            ampl.solve()
+            try:
+                ampl.solve()
+                # Extract variables/objective values of interest for storage
+                # cut_values   = ampl.getVariable('Cut').getValues().toList()
+                # cut_patterns_df = ampl.getParameter('nbr').getValues().toPandas() # take to df
+                
+                objective_function = ampl.getObjective('Number')
+                objective_value = objective_function.value()
 
-            # Assuming 'Cut' is the variable of interest (modify as needed)
-            cut_values = ampl.getVariable('Cut').getValues().toList()
-            
-            # Get the objective function value
-            objective_function = ampl.getObjective('Number')  # Replace with your objective function's name
-            objective_value = objective_function.value()
+                # Write the results to CSV
+                csvwriter.writerow([dat_file, objective_value])
+            except RuntimeError as e: # If solver takes too long in some particular problem
+                print("Solver did not finish within the time limit.")
 
-            # Write the results to CSV
-            csvwriter.writerow([dat_file, cut_values, objective_value])
 
     # Close the AMPL environment
     ampl.close()
@@ -136,6 +158,11 @@ def solve_ampl_with_different_datafiles(data_dir_str, data_df, ampl_model_file,
 if __name__ == "__main__":
     excel_solutions_path = './BPPLIB/true-solutions/SCHOLL-SOLUTIONS.xlsx'
     dat_folder = './BPPLIB/Scholl_CSP_dat/'
-    data_df = solutions_excel_to_df(excel_solutions_path)
+    data_df = scholl_solutions_to_df(excel_solutions_path)
 
-    solve_ampl_with_different_datafiles(dat_folder, data_df, 'bpplib.mod', 'bpplib.run', 'test_output.csv', './ampl_run_log.txt')
+    output_file_name = 'scholl-1-output.csv'
+    confirmation = input(f'Confirm the output file name {output_file_name}, i.e., enter it here: ')
+    if confirmation == output_file_name:
+        solve_ampl_with_different_datafiles(dat_folder, data_df, 'bpplib.mod', 'bpplib.run', output_file_name, './ampl_run_log.txt')
+    else:
+        print('Wrong name given! Interrupted.')
