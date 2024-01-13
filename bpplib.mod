@@ -4,6 +4,10 @@
 # Data specification
 param roll_width > 0;
 
+# Timeout seconds
+# Set it from the Python script
+param timeLimit;
+
 set WIDTHS; # set of widths to be cut
 param orders {WIDTHS} > 0; # number of each width to be cut
 

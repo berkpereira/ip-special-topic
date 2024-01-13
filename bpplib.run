@@ -1,10 +1,15 @@
 # FROM "AMPL - A MODELING LANGUAGE FOR MATHEMATICAL PROGRAMMING", 2ND ED, by Fourer, Gay, and Kernighan.
 # Section 14.4
 
-# param dataFileName;  # Parameter to hold the data file name
-# model bpplib.mod;
-# data $dataFileName;  # Use the parameter in the data statement
-# data N4C3W4_L.dat; # Hard-coded way of doing things. Not good, will change.
+# Model, data, etc., are specified from Python script.
+
+param timeLimitExceeded binary;  # Flag to indicate whether time limit was exceeded
+let timeLimitExceeded := 0;  # Initialize to 0 (not exceeded)
+
+param excess_time;
+param startTime;
+let startTime := time();
+print startTime;
 
 option solver cplex, solution_round 6;
 option display_1col 0, display_transpose -10;
@@ -24,6 +29,13 @@ for {i in WIDTHS} {
 }
 
 repeat {
+	let excess_time := time() - startTime - timeLimit;
+	if  excess_time > 0 then {
+		let timeLimitExceeded := 1;  # Set the flag
+		print "Total time limit exceeded.";
+		break;
+	}
+
 	solve Cutting_Opt;
 	let {i in WIDTHS} price[i] := Fill[i].dual;
 	

@@ -2,6 +2,8 @@ import amplpy
 import csv
 import os
 import sys
+import signal
+import time
 
 import pandas as pd
 
@@ -90,13 +92,13 @@ def stop_redirection():
     sys.stdout = sys.__stdout__
 
 def solve_ampl_with_different_datafiles(data_dir_str, data_df, ampl_model_file,
-                                        ampl_run_file, output_csv, log_file_path):
+                                        ampl_run_file, output_csv, log_file_path, timeout_seconds):
     # Create an AMPL environment
     amplpy.add_to_path(r"/Users/gabrielpereira/ampl.macos64")
     ampl = amplpy.AMPL()
 
     # Set time limit for solution here
-    ampl.setOption('cplex_options', 'timelimit=10')
+    # ampl.setOption('cplex_options', 'timelimit=10')
 
     # Clear contents of current AMPL output log file, if any.
     with open(log_file_path, 'w'):
@@ -126,18 +128,26 @@ def solve_ampl_with_different_datafiles(data_dir_str, data_df, ampl_model_file,
             # Reset AMPL object
             ampl.reset()
 
-            # Set the model file
-            ampl.read(ampl_model_file)
-
-            # Set the data file to use
-            ampl.eval(f'data {dat_file};')
-
-            # "include" (AMPL-equivalent command) the run file
-            ampl.read(ampl_run_file)
-
             # Solve the problem
             try:
+                # set_timeout(timeout_seconds)  # Set the global timeout
+
+                # Set the model file
+                ampl.read(ampl_model_file)
+                timeLimitParam = ampl.get_parameter('timeLimit')
+                timeLimitParam.set(timeout_seconds)
+
+                # Set the data file to use
+                ampl.eval(f'data {dat_file};')
+
+                # "include" (AMPL-equivalent command) the run file
+                ampl.read(ampl_run_file)
+
                 ampl.solve()
+
+                # Check if the time limit was exceeded
+                time_limit_exceeded = bool(ampl.getParameter('timeLimitExceeded').value())
+                
                 # Extract variables/objective values of interest for storage
                 # cut_values   = ampl.getVariable('Cut').getValues().toList()
                 # cut_patterns_df = ampl.getParameter('nbr').getValues().toPandas() # take to df
@@ -147,9 +157,9 @@ def solve_ampl_with_different_datafiles(data_dir_str, data_df, ampl_model_file,
 
                 # Write the results to CSV
                 csvwriter.writerow([dat_file, objective_value])
-            except RuntimeError as e: # If solver takes too long in some particular problem
-                print("Solver did not finish within the time limit.")
-
+            except: # If solver takes too long in some particular problem
+                print("Something went wrong!.")
+                os.system(f'say "skip"')
 
     # Close the AMPL environment
     ampl.close()
@@ -163,6 +173,9 @@ if __name__ == "__main__":
     output_file_name = 'scholl-1-output.csv'
     confirmation = input(f'Confirm the output file name {output_file_name}, i.e., enter it here: ')
     if confirmation == output_file_name:
-        solve_ampl_with_different_datafiles(dat_folder, data_df, 'bpplib.mod', 'bpplib.run', output_file_name, './ampl_run_log.txt')
+        solve_ampl_with_different_datafiles(dat_folder, data_df, 'bpplib.mod',
+                                            'bpplib.run', output_file_name, './ampl_run_log.txt', 15)
     else:
         print('Wrong name given! Interrupted.')
+
+    
