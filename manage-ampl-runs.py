@@ -65,11 +65,11 @@ def scholl_solutions_to_df(excel_file_path, filter_selected=True):
     # I PROPOSE TO DO 120 OF THESE FOR THE FINAL WORK
     secure_random = random.SystemRandom()
     random_seed = secure_random.randint(0, 2**32 - 1)
-    c_rows = df[df['Name'].str[2] == 'C'].sample(n=60, random_state=random_seed)
+    c_rows = df[df['Name'].str[2] == 'C'].sample(n=0, random_state=random_seed)
 
     # Randomly select 20 rows where 3rd character in 'Name' is 'W'
     # I PROPOSE TO DO 20 OF THESE FOR THE FINAL WORK
-    w_rows = df[df['Name'].str[2] == 'W'].sample(n=0)
+    w_rows = df[df['Name'].str[2] == 'W'].sample(n=30)
 
     # Combine the two filtered DataFrames
     df = pd.concat([c_rows, w_rows])
@@ -150,7 +150,12 @@ def solve_ampl_with_different_datafiles(data_dir_str, data_df, ampl_model_file,
                 ampl.solve()
 
                 # Check if the time limit was exceeded
+                # The below is obtained via our own methods in the .run file
                 time_limit_exceeded = bool(ampl.getParameter('timeLimitExceeded').value())
+                # But we also look for CPLEX-internal premature stops
+                solve_result = ampl.getValue('_solve_result')
+                solve_message = ampl.getValue('_solve_message')
+                time_limit_exceeded = ('limit' in solve_result or 'Limit' in solve_message)
                 
                 objective_function = ampl.getObjective('Number')
                 objective_value = objective_function.value()
@@ -171,13 +176,15 @@ def solve_ampl_with_different_datafiles(data_dir_str, data_df, ampl_model_file,
 if __name__ == "__main__":
     excel_solutions_path = './BPPLIB/true-solutions/SCHOLL-SOLUTIONS.xlsx'
     dat_folder = './BPPLIB/Scholl_CSP_dat/'
+    
+    output_file_name = 'scholl-results.csv'
+
     data_df = scholl_solutions_to_df(excel_solutions_path)
 
-    output_file_name = 'scholl-1-output.csv'
     confirmation = input(f'Confirm the output file name {output_file_name}, i.e., enter it here: ')
     if confirmation == output_file_name:
         solve_ampl_with_different_datafiles(dat_folder, data_df, 'bpplib.mod',
-                                            'bpplib.run', output_file_name, './ampl_run_log.txt', 20)
+                                            'bpplib.run', output_file_name, './ampl_run_log.txt', 60)
     else:
         print('Wrong name given! Interrupted.')
 
