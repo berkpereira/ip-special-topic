@@ -62,11 +62,11 @@ def scholl_solutions_to_df(excel_file_path, filter_selected=True):
 
     # Randomly select 120 rows where 3rd character in 'Name' is 'C'
     # I PROPOSE TO DO 120 OF THESE FOR THE FINAL WORK
-    c_rows = df[df['Name'].str[2] == 'C'].sample(n=180, random_state=1)
+    c_rows = df[df['Name'].str[2] == 'C'].sample(n=1)
 
     # Randomly select 20 rows where 3rd character in 'Name' is 'W'
     # I PROPOSE TO DO 20 OF THESE FOR THE FINAL WORK
-    w_rows = df[df['Name'].str[2] == 'W'].sample(n=0, random_state=1)
+    w_rows = df[df['Name'].str[2] == 'W'].sample(n=0)
 
     # Combine the two filtered DataFrames
     df = pd.concat([c_rows, w_rows])
@@ -105,9 +105,11 @@ def solve_ampl_with_different_datafiles(data_dir_str, data_df, ampl_model_file,
         pass
 
     # Prepare a CSV file to store the results
-    with open(output_csv, 'w', newline='') as csvfile:
+    file_exists = os.path.isfile(output_csv)
+    with open(output_csv, 'a', newline='') as csvfile:
         csvwriter = csv.writer(csvfile)
-        csvwriter.writerow(['DataFile', 'ObjectiveValue'])  # header
+        if not file_exists:
+            csvwriter.writerow(['DataFile', 'ObjectiveValue'])  # header
 
         # Iterate over the data files
         for index, row in data_df.iterrows():
@@ -119,7 +121,6 @@ def solve_ampl_with_different_datafiles(data_dir_str, data_df, ampl_model_file,
             stop_redirection()
             print('-------------------------------------------------------------------------')
             print(f'SOLVING PROBLEM NO. {index}')
-            os.system(f'say "{str(index)}"')
             print()
 
             # Append AMPL output to log file
@@ -148,15 +149,14 @@ def solve_ampl_with_different_datafiles(data_dir_str, data_df, ampl_model_file,
                 # Check if the time limit was exceeded
                 time_limit_exceeded = bool(ampl.getParameter('timeLimitExceeded').value())
                 
-                # Extract variables/objective values of interest for storage
-                # cut_values   = ampl.getVariable('Cut').getValues().toList()
-                # cut_patterns_df = ampl.getParameter('nbr').getValues().toPandas() # take to df
-                
                 objective_function = ampl.getObjective('Number')
                 objective_value = objective_function.value()
 
-                # Write the results to CSV
-                csvwriter.writerow([dat_file, objective_value])
+                # Write the results to CSV, but only if the solver was not interrupted prematurely
+                if not time_limit_exceeded:
+                    csvwriter.writerow([dat_file, objective_value])
+                else:
+                    os.system(f'say "skip"')
             except: # If solver takes too long in some particular problem
                 print("Something went wrong!.")
                 os.system(f'say "skip"')
@@ -173,8 +173,9 @@ if __name__ == "__main__":
     output_file_name = 'scholl-1-output.csv'
     confirmation = input(f'Confirm the output file name {output_file_name}, i.e., enter it here: ')
     if confirmation == output_file_name:
-        solve_ampl_with_different_datafiles(dat_folder, data_df, 'bpplib.mod',
-                                            'bpplib.run', output_file_name, './ampl_run_log.txt', 15)
+        for _ in range(100):
+            solve_ampl_with_different_datafiles(dat_folder, data_df, 'bpplib.mod',
+                                            'bpplib.run', output_file_name, './ampl_run_log.txt', 20)
     else:
         print('Wrong name given! Interrupted.')
 
