@@ -12,7 +12,7 @@ let startTime := time();
 print startTime;
 
 option solver cplex, solution_round 6;
-option cplex_options 'maxtime=40';
+option cplex_options 'timelimit=30';
 option display_1col 0, display_transpose -10;
 
 problem Cutting_Opt: Cut, Number, Fill;

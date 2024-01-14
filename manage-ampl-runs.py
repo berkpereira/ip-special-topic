@@ -149,16 +149,17 @@ def solve_ampl_with_different_datafiles(data_dir_str, data_df, ampl_model_file,
 
                 ampl.solve()
 
+                objective_function = ampl.getObjective('Number')
+                objective_value = objective_function.value()
+
                 # Check if the time limit was exceeded
                 # The below is obtained via our own methods in the .run file
                 time_limit_exceeded = bool(ampl.getParameter('timeLimitExceeded').value())
                 # But we also look for CPLEX-internal premature stops
-                solve_result = ampl.getValue('_solve_result')
-                solve_message = ampl.getValue('_solve_message')
-                time_limit_exceeded = ('limit' in solve_result or 'Limit' in solve_message)
+                solver_message = objective_function.message()
+                time_limit_exceeded = ('time limit' in solver_message)
                 
-                objective_function = ampl.getObjective('Number')
-                objective_value = objective_function.value()
+
 
                 # Write the results to CSV, but only if the solver was not interrupted prematurely
                 if not time_limit_exceeded:
@@ -167,7 +168,7 @@ def solve_ampl_with_different_datafiles(data_dir_str, data_df, ampl_model_file,
                     os.system(f'say "skip"')
             except: # If solver takes too long in some particular problem
                 print("Something went wrong!.")
-                os.system(f'say "skip"')
+                os.system(f'say "exception"')
 
     # Close the AMPL environment
     ampl.close()
@@ -187,5 +188,7 @@ if __name__ == "__main__":
                                             'bpplib.run', output_file_name, './ampl_run_log.txt', 60)
     else:
         print('Wrong name given! Interrupted.')
+    
+    os.system('say "Script is finished"')
 
     
