@@ -4,6 +4,7 @@ import os
 import sys
 import signal
 import time
+import random
 
 import pandas as pd
 
@@ -62,7 +63,9 @@ def scholl_solutions_to_df(excel_file_path, filter_selected=True):
 
     # Randomly select 120 rows where 3rd character in 'Name' is 'C'
     # I PROPOSE TO DO 120 OF THESE FOR THE FINAL WORK
-    c_rows = df[df['Name'].str[2] == 'C'].sample(n=1)
+    secure_random = random.SystemRandom()
+    random_seed = secure_random.randint(0, 2**32 - 1)
+    c_rows = df[df['Name'].str[2] == 'C'].sample(n=60, random_state=random_seed)
 
     # Randomly select 20 rows where 3rd character in 'Name' is 'W'
     # I PROPOSE TO DO 20 OF THESE FOR THE FINAL WORK
@@ -173,8 +176,7 @@ if __name__ == "__main__":
     output_file_name = 'scholl-1-output.csv'
     confirmation = input(f'Confirm the output file name {output_file_name}, i.e., enter it here: ')
     if confirmation == output_file_name:
-        for _ in range(100):
-            solve_ampl_with_different_datafiles(dat_folder, data_df, 'bpplib.mod',
+        solve_ampl_with_different_datafiles(dat_folder, data_df, 'bpplib.mod',
                                             'bpplib.run', output_file_name, './ampl_run_log.txt', 20)
     else:
         print('Wrong name given! Interrupted.')
