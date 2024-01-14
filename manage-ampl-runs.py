@@ -65,11 +65,11 @@ def scholl_solutions_to_df(excel_file_path, filter_selected=True):
     # I PROPOSE TO DO 120 OF THESE FOR THE FINAL WORK
     secure_random = random.SystemRandom()
     random_seed = secure_random.randint(0, 2**32 - 1)
-    c_rows = df[df['Name'].str[2] == 'C'].sample(n=0, random_state=random_seed)
+    c_rows = df[df['Name'].str[2] == 'C'].sample(n=30, random_state=random_seed)
 
     # Randomly select 20 rows where 3rd character in 'Name' is 'W'
     # I PROPOSE TO DO 20 OF THESE FOR THE FINAL WORK
-    w_rows = df[df['Name'].str[2] == 'W'].sample(n=30)
+    w_rows = df[df['Name'].str[2] == 'W'].sample(n=10, random_state=random_seed)
 
     # Combine the two filtered DataFrames
     df = pd.concat([c_rows, w_rows])
